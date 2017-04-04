@@ -87,8 +87,7 @@ int main()
                     if(n2==0)
                     {
                         printf("Error. Imposible realizar calculo con denominador cero.\n");
-                    }
-                    else
+                    } else
                     {
                         printf("La division es: %.2f\n", division(n1,n2));
                     }
@@ -125,7 +124,7 @@ int main()
                     if(flag1==0 && flag2==0)
                     {
                         printf("Error. Debe ingresar al menos un operador.\n");
-                    }else
+                    } else
                     {
                         if(flag1==1 && flag2==0)
                         {
@@ -148,8 +147,7 @@ int main()
                     if(n2==0)
                         {
                             printf("\nError. Imposible realizar division con denominador 0.");
-                        }
-                        else
+                        } else
                         {
                             printf("\nLa division es: %.2f", division(n1,n2));
                         }
