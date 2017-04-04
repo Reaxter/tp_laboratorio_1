@@ -75,7 +75,7 @@ int main()
                     printf("Error. Debe ingresar ambos operadores.\n");
                 } else
                 {
-                printf("La resta es: %d\n", resta(n1,n2));
+                    printf("La resta es: %d\n", resta(n1,n2));
                 }
                 break;
             case 53:
@@ -116,8 +116,7 @@ int main()
                     if(rta==97 || rta==65)
                     {
                         printf("\nEl factorial es: %d\n", factorial(n1));
-                    }
-                    if(rta==98 || rta==66)
+                    } else
                     {
                         printf("\nEl factorial es: %d\n", factorial(n2));
                     }
@@ -126,14 +125,15 @@ int main()
                     if(flag1==0 && flag2==0)
                     {
                         printf("Error. Debe ingresar al menos un operador.\n");
-                    }
-                    if(flag1==1 && flag2==0)
+                    }else
                     {
-                        printf("El factorial es: %d\n", factorial(n1));
-                    }
-                    if(flag1==0 && flag2==1)
-                    {
+                        if(flag1==1 && flag2==0)
+                        {
+                            printf("El factorial es: %d\n", factorial(n1));
+                        } else
+                        {
                         printf("El factorial es: %d\n", factorial(n2));
+                        }
                     }
                 }
                 break;
@@ -164,8 +164,7 @@ int main()
                     if(rta==97 || rta==65)
                     {
                         printf("\nEl factorial es: %d\n", factorial(n1));
-                    }
-                    if(rta==98 || rta==66)
+                    } else
                     {
                         printf("\nEl factorial es: %d\n", factorial(n2));
                     }
