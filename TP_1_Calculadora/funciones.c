@@ -1,6 +1,6 @@
 #include "funciones.h"
 
-/** \brief Obtiene dos operadores recibidos como parámetros
+/** \brief Obtiene dos operadores y realiza una suma
  *
  * \param int a Primer operador
  * \param int b Segundo operador
@@ -14,7 +14,7 @@ int suma(int a, int b)
     return resultado;
 }
 
-/** \brief Obtiene dos operadores recibidos como parámetros
+/** \brief Obtiene dos operadores y realiza una resta
  *
  * \param int a Primer operador
  * \param int b Segundo operador
@@ -28,11 +28,11 @@ int resta(int a, int b)
     return resultado;
 }
 
-/** \brief Obtiene dos operadores recibidos como parámetros
+/** \brief Obtiene dos operadores y realiza una division
  *
- * \param int a Primer operador (numerador)
- * \param int b Segundo operador (denominador)
- * \return resultado Retorna el resultado resultado de de la division entre el numerador y denominador
+ * \param int a Primer operador (dividendo)
+ * \param int b Segundo operador (divisor)
+ * \return resultado Retorna el resultado de la division entre el primer operador dividido el segundo operador
  *
  */
 float division(int a, int b)
@@ -42,7 +42,7 @@ float division(int a, int b)
     return resultado;
 }
 
-/** \brief Obtiene dos operadores recibidos como parámetros
+/** \brief Obtiene dos operadores y realiza una multiplicacion
  *
  * \param int a Primer operador
  * \param int b Segundo operador
@@ -56,7 +56,7 @@ int multiplicacion(int a, int b)
     return resultado;
 }
 
-/** \brief Obtiene un operador recibido como parámetros
+/** \brief Obtiene un operador y realiza un factorial
  *
  * \param int a Operador
  * \return resultado Retorna el factorial resultado del operador

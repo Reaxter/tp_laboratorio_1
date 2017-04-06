@@ -41,22 +41,12 @@ int main()
             case 49:
                 printf("Ingrese el 1er operador: ");
                 scanf("%d", &n1);
-                while(n1<0)
-                {
-                    printf("Error. No es permitido el ingreso de numeros negativos.\nVuelva a ingresar: ");
-                    scanf("%d", &n1);
-                }
                 printf("El 1er operador es: %d\n", n1);
                 flag1=1;
                 break;
             case 50:
                 printf("Ingrese el 2er operador: ");
                 scanf("%d", &n2);
-                while(n2<0)
-                {
-                    printf("Error. No es permitido el ingreso de numeros negativos.\nVuelva a ingresar: ");
-                    scanf("%d", &n2);
-                }
                 printf("El 2er operador es: %d\n", n2);
                 flag2=1;
                 break;
@@ -86,7 +76,7 @@ int main()
                 {
                     if(n2==0)
                     {
-                        printf("Error. Imposible realizar calculo con denominador cero.\n");
+                        printf("Error. Imposible realizar la division con divisor cero.\n");
                     } else
                     {
                         printf("La division es: %.2f\n", division(n1,n2));
@@ -105,19 +95,37 @@ int main()
             case 55:
                 if(flag1==1 && flag2==1)
                 {
-                    printf("Cual operador desea utilizar? a-%d b-%d", n1, n2);
-                    rta=getch();
-                    while(rta!=97 && rta!=98 && rta!=65 && rta!=66)
+                    if(n1<0 && n2<0)
                     {
-                        printf("\nError. Cual operador desea utilizar? a-%d b-%d", n1, n2);
-                        rta=getch();
-                    }
-                    if(rta==97 || rta==65)
-                    {
-                        printf("\nEl factorial es: %d\n", factorial(n1));
+                        printf("Error. Imposible realizar el factorial de un numero negativo.\n");
                     } else
                     {
-                        printf("\nEl factorial es: %d\n", factorial(n2));
+                        printf("Cual operador desea utilizar? a-(%d) b-(%d)", n1, n2);
+                        rta=getch();
+                        while(rta!=97 && rta!=98 && rta!=65 && rta!=66)
+                        {
+                            printf("\nError. Cual operador desea utilizar? a-(%d) b-(%d)", n1, n2);
+                            rta=getch();
+                        }
+                        if(rta==97 || rta==65)
+                        {
+                            if(n1>=0)
+                            {
+                                printf("\nEl factorial es: %d\n", factorial(n1));
+                            } else
+                            {
+                                printf("\nError. Imposible realizar el factorial de un numero negativo.\n");
+                            }
+                        } else
+                        {
+                            if(n2>=0)
+                            {
+                                printf("\nEl factorial es: %d\n", factorial(n2));
+                            } else
+                            {
+                                printf("\nError. Imposible realizar el factorial de un numero negativo.\n");
+                            }
+                        }
                     }
                 } else
                 {
@@ -128,10 +136,22 @@ int main()
                     {
                         if(flag1==1 && flag2==0)
                         {
-                            printf("El factorial es: %d\n", factorial(n1));
+                            if(n1>=0)
+                            {
+                                printf("El factorial es: %d\n", factorial(n1));
+                            } else
+                            {
+                                printf("Error. Imposible realizar el factorial de un numero negativo.\n");
+                            }
                         } else
                         {
-                        printf("El factorial es: %d\n", factorial(n2));
+                            if(n2>=0)
+                            {
+                                printf("El factorial es: %d\n", factorial(n2));
+                            } else
+                            {
+                                printf("Error. Imposible realizar el factorial de un numero negativo.\n");
+                            }
                         }
                     }
                 }
@@ -146,25 +166,43 @@ int main()
                     printf("\nLa resta es: %d", resta(n1,n2));
                     if(n2==0)
                         {
-                            printf("\nError. Imposible realizar division con denominador 0.");
+                            printf("\nError. Imposible realizar la division con divisor cero.");
                         } else
                         {
                             printf("\nLa division es: %.2f", division(n1,n2));
                         }
                     printf("\nLa multiplicacion es: %d", multiplicacion(n1,n2));
-                    printf("\nCual operador desea utilizar? a-%d b-%d", n1, n2);
-                    rta=getch();
-                    while(rta!=97 && rta!=98 && rta!=65 && rta!=66)
+                    if(n1<0 && n2<0)
                     {
-                        printf("\nError. Cual operador desea utilizar? a-%d b-%d", n1, n2);
-                        rta=getch();
-                    }
-                    if(rta==97 || rta==65)
-                    {
-                        printf("\nEl factorial es: %d\n", factorial(n1));
+                        printf("\nError. Imposible realizar el factorial de un numero negativo.\n");
                     } else
                     {
-                        printf("\nEl factorial es: %d\n", factorial(n2));
+                        printf("\nCual operador desea utilizar? a-(%d) b-(%d)", n1, n2);
+                        rta=getch();
+                        while(rta!=97 && rta!=98 && rta!=65 && rta!=66)
+                        {
+                            printf("\nError. Cual operador desea utilizar? a-(%d) b-(%d)", n1, n2);
+                            rta=getch();
+                        }
+                        if(rta==97 || rta==65)
+                        {
+                            if(n1>=0)
+                            {
+                                printf("\nEl factorial es: %d\n", factorial(n1));
+                            } else
+                            {
+                                printf("\nError. Imposible realizar el factorial de un numero negativo.\n");
+                            }
+                        } else
+                        {
+                            if(n2>=0)
+                            {
+                                printf("\nEl factorial es: %d\n", factorial(n2));
+                            } else
+                            {
+                                printf("\nError. Imposible realizar el factorial de un numero negativo.\n");
+                            }
+                        }
                     }
                 }
                 break;
