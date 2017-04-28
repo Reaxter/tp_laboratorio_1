@@ -67,8 +67,18 @@ void agregarUsuario(ePersona lista[], int max)
         }
         while(verificarDni(lista, max, dni)!=-1)
         {
-        printf("Error. Reingrese el DNI: ");
-        scanf("%d", &dni);
+        	while(dni<1000000 || dni>99999999)
+        	{
+            		if(dni<1000000)
+            		{
+                		printf("Error. Usted ha ingresado pocos digitos, reingrese el DNI: ");
+
+            		} else
+            		{
+                		printf("Error. Usted ha ingresado demasiados digitos, reingrese el DNI: ");
+            		}
+            		scanf("%d", &dni);
+        	}
         }
         lista[indice].dni=dni;
         lista[indice].estado=1;
