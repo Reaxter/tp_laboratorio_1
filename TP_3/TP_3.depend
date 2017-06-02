@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1496284795 source:c:\users\usuario\desktop\tp_3_cascara\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1496284802 c:\users\usuario\desktop\tp_3_cascara\funciones.h
+
+1496284621 source:c:\users\usuario\desktop\tp_3_cascara\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1496285573 source:c:\users\usuario\desktop\tp_3_cascara\nueva carpeta\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1496285559 c:\users\usuario\desktop\tp_3_cascara\nueva carpeta\funciones.h
+
+1496287112 source:e:\tp_3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1496287098 e:\tp_3\funciones.h
+
+1496345866 source:j:\tp_3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1496361860 j:\tp_3\funciones.h
+
+1496360350 source:j:\tp_3\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
