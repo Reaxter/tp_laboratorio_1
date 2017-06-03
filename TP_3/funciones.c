@@ -3,52 +3,76 @@
 #include <string.h>
 #include "funciones.h"
 
-void agregarPelicula(void)
+void agregarPelicula(eMovie this)
 {
     FILE  *pArchivo;
-	eMovie pPelicula;
+    char titulo[20];
+    int flag=0;
 	if((pArchivo=fopen("peliculas.bin","rb+"))==NULL)
     {
         fclose(pArchivo);
         pArchivo=fopen("peliculas.bin","wb");
+        printf("Ingrese el titulo de la pelicula: ");
+        gets(titulo);
     }
-	fseek ( pArchivo , 0L , SEEK_END );
-	printf("Ingrese el titulo de la pelicula: ");
-    gets(pPelicula.titulo);
+    else
+    {
+        printf("Ingrese el titulo de la pelicula: ");
+        gets(titulo);
+        fseek ( pArchivo , 0L , SEEK_SET );
+        while(!feof(pArchivo))
+        {
+            if((fread(&this,sizeof(eMovie),1,pArchivo))!=1)
+            {
+                if(feof(pArchivo) && flag==0)
+                    break;
+                else
+                {
+                    flag=0;
+                    fseek ( pArchivo , 0L , SEEK_SET );
+                }
+            }
+            while(strcmp(titulo, this.titulo) == 0)
+            {
+                flag=1;
+                printf("Error. Reingrese el titulo de la pelicula: ");
+                gets(titulo);
+            }
+        }
+    }
+    fseek ( pArchivo , 0L , SEEK_END );
+    strcpy(this.titulo, titulo);
     printf("Ingrese el genero de la pelicula: ");
-    gets(pPelicula.genero);
+    gets(this.genero);
     printf("Ingrese la duracion de la pelicula: ");
-	scanf("%d",&pPelicula.duracion);
+	scanf("%d",&this.duracion);
 	fflush(stdin);
     printf("Ingrese la descripcion de la pelicula: ");
-    gets(pPelicula.descripcion);
+    gets(this.descripcion);
     printf("Ingrese el puntaje de la pelicula: ");
-	scanf("%d",&pPelicula.puntaje);
+	scanf("%d",&this.puntaje);
 	fflush(stdin);
     printf("Ingrese el link de la pelicula: ");
-    gets(pPelicula.linkImagen);
+    gets(this.linkImagen);
     fflush(stdin);
-	fwrite(&pPelicula,sizeof(eMovie),1,pArchivo);
+	fwrite(&this,sizeof(eMovie),1,pArchivo);
     fclose(pArchivo);
     system("cls");
     printf("Se ha agregado una pelicula exitosamente.\n");
 }
 
-void borrarPelicula(void)
+void borrarPelicula(eMovie this)
 {
     FILE  *pArchivo, *pAux;
-	eMovie pPelicula;
 	char titulo[20];
 	int flag=0;
-	int cant;
-	printf("Ingrese el titulo de la pelicula: ");
+	printf("Ingrese el titulo de la pelicula a borrar: ");
 	gets(titulo);
 	pArchivo=fopen("peliculas.bin","rb+");
 	pAux=fopen("temporal.bin","wb");
 	while(!feof(pArchivo))
     {
-        cant=fread(&pPelicula,sizeof(eMovie),1,pArchivo);
-        if(cant!=1)
+        if((fread(&this,sizeof(eMovie),1,pArchivo))!=1)
         {
             if(feof(pArchivo))
                 break;
@@ -58,13 +82,13 @@ void borrarPelicula(void)
                 break;
             }
         }
-        if(strcmp(titulo, pPelicula.titulo) == 0)
+        if(strcmp(titulo, this.titulo) == 0)
         {
             flag=1;
         }
         else
         {
-            fwrite(&pPelicula,sizeof(eMovie),1,pAux);
+            fwrite(&this,sizeof(eMovie),1,pAux);
         }
     }
     fclose(pAux);
@@ -73,8 +97,7 @@ void borrarPelicula(void)
 	pAux=fopen("temporal.bin","rb+");
     while(!feof(pAux))
     {
-        cant=fread(&pPelicula,sizeof(eMovie),1,pAux);
-        if(cant!=1)
+        if((fread(&this,sizeof(eMovie),1,pAux))!=1)
         {
             if(feof(pAux))
                 break;
@@ -84,7 +107,7 @@ void borrarPelicula(void)
                 break;
             }
         }
-            fwrite(&pPelicula,sizeof(eMovie),1,pArchivo);
+            fwrite(&this,sizeof(eMovie),1,pArchivo);
     }
     if(flag==0)
     {
@@ -102,21 +125,20 @@ void borrarPelicula(void)
     remove("temporal.bin");
 }
 
-void modificarPelicula(void)
+void modificarPelicula(eMovie this)
 {
-    FILE  *pArchivo, *pAux;
-	eMovie pPelicula;
-	char titulo[20];
-	int flag=0;
-	int cant;
-	printf("Ingrese el titulo de la pelicula: ");
+    FILE  *pArchivo, *pAux, *pCopia;
+	char titulo[20], auxTitulo[20];
+	int flag=0, flag2=0;
+	printf("Ingrese el titulo de la pelicula a modificar: ");
 	gets(titulo);
+	strcpy(auxTitulo, titulo);
 	pArchivo=fopen("peliculas.bin","rb+");
 	pAux=fopen("temporal.bin","wb");
+	pCopia=fopen("copia.bin","wb");
 	while(!feof(pArchivo))
     {
-        cant=fread(&pPelicula,sizeof(eMovie),1,pArchivo);
-        if(cant!=1)
+        if((fread(&this,sizeof(eMovie),1,pArchivo))!=1)
         {
             if(feof(pArchivo))
                 break;
@@ -126,40 +148,85 @@ void modificarPelicula(void)
                 break;
             }
         }
-        if(strcmp(titulo, pPelicula.titulo) == 0)
+            fwrite(&this,sizeof(eMovie),1,pCopia);
+    }
+    fclose(pCopia);
+    pCopia=fopen("copia.bin","rb+");
+    fseek ( pArchivo , 0L , SEEK_SET );
+	while(!feof(pArchivo))
+    {
+        if((fread(&this,sizeof(eMovie),1,pArchivo))!=1)
+        {
+            if(feof(pArchivo))
+                break;
+            else
+            {
+                printf("No leyo el ultimo registro");
+                break;
+            }
+        }
+        if(strcmp(titulo, this.titulo) == 0)
         {
             flag=1;
             system("cls");
             printf("Ingrese el titulo de la pelicula: ");
-            gets(pPelicula.titulo);
+            gets(titulo);
+            fseek ( pCopia , 0L , SEEK_SET );
+            while(!feof(pCopia))
+            {
+                if((fread(&this,sizeof(eMovie),1,pCopia))!=1)
+                {
+                    if(feof(pCopia) && flag2==0)
+                        break;
+                    else
+                    {
+                        flag2=0;
+                        fseek ( pCopia , 0L , SEEK_SET );
+                    }
+                }
+                while(strcmp(titulo, this.titulo) == 0)
+                {
+                    if (strcmp(titulo, auxTitulo) == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        flag2=1;
+                        printf("Error. Reingrese el titulo de la pelicula a modificar: ");
+                        gets(titulo);
+                    }
+                }
+            }
+            strcpy(this.titulo, titulo);
             printf("Ingrese el genero de la pelicula: ");
-            gets(pPelicula.genero);
+            gets(this.genero);
             printf("Ingrese la duracion de la pelicula: ");
-            scanf("%d",&pPelicula.duracion);
+            scanf("%d",&this.duracion);
             fflush(stdin);
             printf("Ingrese la descripcion de la pelicula: ");
-            gets(pPelicula.descripcion);
+            gets(this.descripcion);
             printf("Ingrese el puntaje de la pelicula: ");
-            scanf("%d",&pPelicula.puntaje);
+            scanf("%d",&this.puntaje);
             fflush(stdin);
             printf("Ingrese el link de la pelicula: ");
-            gets(pPelicula.linkImagen);
+            gets(this.linkImagen);
             fflush(stdin);
-            fwrite(&pPelicula,sizeof(eMovie),1,pAux);
+            fwrite(&this,sizeof(eMovie),1,pAux);
         }
         else
         {
-            fwrite(&pPelicula,sizeof(eMovie),1,pAux);
+            fwrite(&this,sizeof(eMovie),1,pAux);
         }
     }
+    fclose(pCopia);
     fclose(pAux);
     fclose(pArchivo);
     pArchivo=fopen("peliculas.bin","wb");
 	pAux=fopen("temporal.bin","rb+");
     while(!feof(pAux))
     {
-        cant=fread(&pPelicula,sizeof(eMovie),1,pAux);
-        if(cant!=1)
+        if((fread(&this,sizeof(eMovie),1,pAux))!=1)
         {
             if(feof(pAux))
                 break;
@@ -169,7 +236,7 @@ void modificarPelicula(void)
                 break;
             }
         }
-            fwrite(&pPelicula,sizeof(eMovie),1,pArchivo);
+            fwrite(&this,sizeof(eMovie),1,pArchivo);
     }
     if(flag==0)
     {
@@ -185,29 +252,27 @@ void modificarPelicula(void)
     fclose(pAux);
     fclose(pArchivo);
     remove("temporal.bin");
+    remove("copia.bin");
 }
 
-void generarPagina(void)
+void generarPagina(eMovie this)
 {
     FILE  *pArchivo, *pHtml;
-	eMovie pPelicula;
-	int cant;
 	int flag=0;
-
-	char buffer[1080] = {};
-	char numeros[4] = {};
-
 	pHtml=fopen("peliculas.html","w");
-	strcpy(buffer, "<H1>Lista De Peliculas:</H1></br>");
-    fwrite(&buffer,sizeof(buffer),1,pHtml);
+	fprintf(pHtml, "<html>\n<H1>Lista De Peliculas:</H1></br>");
 	fclose(pHtml);
-
-	pArchivo=fopen("peliculas.bin","rb");
+	if((pArchivo=fopen("peliculas.bin","rb"))==NULL)
+    {
+        fclose(pArchivo);
+        pArchivo=fopen("peliculas.bin","wb");
+        fclose(pArchivo);
+        pArchivo=fopen("peliculas.bin","rb");
+    }
 	pHtml=fopen("peliculas.html","a");
 	while(!feof(pArchivo))
     {
-        cant=fread(&pPelicula,sizeof(eMovie),1,pArchivo);
-        if(cant!=1)
+        if((fread(&this,sizeof(eMovie),1,pArchivo))!=1)
         {
             if(feof(pArchivo))
             {
@@ -221,24 +286,9 @@ void generarPagina(void)
             }
         }
         flag=1;
-        strcpy(buffer, "<table style='width:100%'><img class='img-responsive img-rounded' src='");
-        strcat(buffer, pPelicula.linkImagen);
-        strcat(buffer,"' alt=''><h3>");
-        strcat(buffer, pPelicula.titulo);
-        strcat(buffer, "</h3><ul><li>Género:");
-        strcat(buffer, pPelicula.genero);
-        strcat(buffer, "</li><li>Puntaje:");
-        sprintf(numeros, "%d", pPelicula.puntaje);
-        strcat(buffer, numeros);
-        strcat(buffer, "</li><li>Duración:");
-        sprintf(numeros, "%d", pPelicula.duracion);
-        strcat(buffer, numeros);
-        strcat(buffer, "</li></ul><p>");
-        strcat(buffer, pPelicula.descripcion);
-        strcat(buffer, "</p></table>");
-        fwrite(&buffer,sizeof(buffer),1,pHtml);
-
+        fprintf(pHtml, "\n\t<article class='col-md-4 article-intro'>\n\t\t<a href='#'>\n\t\t\t<img class='img-responsive img-rounded' src='%s' alt=''>\n\t\t</a>\n\t\t<h3>\n\t\t\t<a href='#'>%s</a>\n\t\t</h3>\n\t\t<ul>\n\t\t\t<li>Género:%s</li>\n\t\t\t<li>Puntaje:%d</li>\n\t\t\t<li>Duración:%d</li>\n\t\t</ul>\n\t<p>%s</p>\n\t</article>", this.linkImagen,this.titulo,this.genero,this.puntaje,this.duracion,this.descripcion);
     }
+    fprintf(pHtml, "\n</html>");
     fclose(pHtml);
     fclose(pArchivo);
     if(flag==0)
@@ -246,6 +296,7 @@ void generarPagina(void)
         system("cls");
         printf("Error, debe agregar al menos una pelicula.\n");
         remove("peliculas.html");
+        remove("peliculas.bin");
     }
     else
     {

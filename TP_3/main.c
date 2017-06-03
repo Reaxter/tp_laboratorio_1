@@ -5,6 +5,7 @@
 int main()
 {
     char seguir='s', opcion;
+    eMovie pPelicula;
 
     while(seguir=='s')
     {
@@ -23,16 +24,16 @@ int main()
         switch(opcion)
         {
             case '1':
-                agregarPelicula();
+                agregarPelicula(pPelicula);
                 break;
             case '2':
-                borrarPelicula();
+                borrarPelicula(pPelicula);
                 break;
             case '3':
-                modificarPelicula();
+                modificarPelicula(pPelicula);
                 break;
             case '4':
-                generarPagina();
+                generarPagina(pPelicula);
                 break;
             case '5':
                 seguir = 'n';

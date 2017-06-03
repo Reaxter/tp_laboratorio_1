@@ -18,21 +18,27 @@
 
 1496285559 c:\users\usuario\desktop\tp_3_cascara\nueva carpeta\funciones.h
 
-1496287112 source:e:\tp_3\main.c
+1496405810 source:e:\tp_3\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 
-1496287098 e:\tp_3\funciones.h
+1496406026 e:\tp_3\funciones.h
 
-1496345866 source:j:\tp_3\main.c
+1496448162 source:j:\tp_3\main.c
 	<stdio.h>
 	<stdlib.h>
 	"funciones.h"
 
-1496361860 j:\tp_3\funciones.h
+1496448158 j:\tp_3\funciones.h
 
-1496360350 source:j:\tp_3\funciones.c
+1496450224 source:j:\tp_3\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1496407978 source:e:\tp_3\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
